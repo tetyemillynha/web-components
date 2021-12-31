@@ -1,46 +1,53 @@
 class BlogModal extends HTMLElement {
   static get observedAttributes() {
-    return ['title', 'content'];
+    return ['open', 'title', 'content'];
   }
 
   constructor() {
     super(); 
     this.attachShadow({mode: 'open'});
-  }
-
-  connectedCallback() {
-    this.render();
+    this.close = new CustomEvent('close', {
+      bubles: true,
+      cancelable: false,
+      detail: {
+        open: false
+      }
+    });
   }
 
   attributeChangedCallback(attrName, oldValue, newValue) {
-    if (oldValue !== newValue) {
+    if (attrName !== 'open' && oldValue !== newValue && newValue !== null) {
       this[attrName] = newValue;
+    } else if(attrName === 'open') {
+      this[attrName] = this.hasAttribute(attrName);
     }
+
+    this.render()
   }
 
-  get title() {
-    return this.getAttribute('title');
-  }
+  // get title() {
+  //   return this.getAttribute('title');
+  // }
 
-  get content() {
-    return this.getAttribute('content');
-  }
+  // get content() {
+  //   return this.getAttribute('content');
+  // }
 
-  set title(value) {
-    if(value){
-      this.setAttribute('title', value)
-    } else {
-      this.removeAttribute('title')
-    }
-  }
+  // set title(value) {
+  //   if(value){
+  //     this.setAttribute('title', value)
+  //   } else {
+  //     this.removeAttribute('title')
+  //   }
+  // }
 
-  set content(value) {
-    if(value){
-      this.setAttribute('content', value)
-    } else {
-      this.removeAttribute('content')
-    }
-  }
+  // set content(value) {
+  //   if(value){
+  //     this.setAttribute('content', value)
+  //   } else {
+  //     this.removeAttribute('content')
+  //   }
+  // }
 
   render() {
     const { shadowRoot } = this;
@@ -50,6 +57,23 @@ class BlogModal extends HTMLElement {
 
     if (templateNode) {
       const instance =  document.importNode(templateNode.content, true);
+      const close = instance.querySelector('.close');
+      const wrapper = instance.querySelector('.wrapper');
+      const closeEvent = this.close;
+
+      close.onclick = function() {
+        console.log('Close was clicked');
+        this.dispatchEvent(closeEvent);
+      }
+
+      shadowRoot.addEventListener('close', () => {
+        console.log('Close was called');
+      })
+      
+      if (this['open'] === true) {
+        instance.querySelector('.wrapper').classList.add('open');
+      }
+      
       instance.querySelector('.title').innerHTML = this['title'];
       instance.querySelector('.subtitle').innerHTML = this['content'];
 

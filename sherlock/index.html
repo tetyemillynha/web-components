@@ -5,57 +5,87 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sherlock Holmes - The Blog</title>
+  <link rel="stylesheet" href="./styles/index.css">
 </head>
 <body>
+   <!-- Blog Modal Template -->
+   <template id="modal-template">
+    <link rel="stylesheet" href="./styles/blog-modal.css">
+    
+    <div class="wrapper">
+      <div class="overlay">
+        <div class="modal">
+          <div class="title"></div>
+          <div class="subtitle"></div>
+          <p class="close">X</p>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <blog-modal title="Blog Post #1" content="This is the blog post number 1. This is the content of the template" required></blog-modal>
+  <header>
+    <nav class="navbar">
+      <h1> Sherlock Holmes - The Blog</h1>
+    </nav>
+  </header>
   <!-- Blg Card Template -->
   <template id="card-template">
+    <link rel="stylesheet" href="./styles/blog-card.css">
     <style>
-      .card {
-        border: 1px solid #ddd;
-        width: 200px;
-        padding: 10px;
-        margin-bottom: 5px;
+      .cover{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
-      .header{
-        padding: 10px;
-        border-bottom: 1px solid #ddd ;
+      .title{
+        margin: 0;
+        font-size: 20px;
       }
-
-      .content{
-        margin-top: 10px;
+      .subtitle{
+        color: #666;
+        font-size: 15px;
       }
     </style>
     <div class="card">
       <div class="header">
+        <img class="cover" src="" alt="">
+      </div>
+      <div class="content">
         <p class="title"></p>
         <span class="subtitle"></span>
       </div>
-      <div class="content">
-        <span class="synopsis"></span>
-      </div>
     </div>
   </template>
 
-  <!-- Blog Modal Template -->
-  <template id="modal-template">
-    <style>
-      .modal{
-        padding: 10px;
-        border: solid 1px #ddd;
-        width: 300px;
-      }
-    </style>
-    <div class="modal">
-      <div class="title"></div>
-      <div class="subtitle"></div>
-    </div>
-  </template>
-
-  <blog-modal title="Blog Post #1" content="This is the blog post number 1. This is the content of the template"></blog-modal>
-  <blog-card></blog-card>
+  <div id="blog-cards-container"></div>
 
   <script src="./scripts/blog-card.js"></script>
   <script src="./scripts/blog-modal.js"></script>
+  <script>
+    const titles = [
+      {title: 'Title 1', subtitle: 'subtitle 1', cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Polarlicht_2.jpg/800px-Polarlicht_2.jpg'},
+      {title: 'Title 2', subtitle: 'subtitle 2', cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sikh_pilgrim_at_the_Golden_Temple_%28Harmandir_Sahib%29_in_Amritsar%2C_India.jpg/800px-Sikh_pilgrim_at_the_Golden_Temple_%28Harmandir_Sahib%29_in_Amritsar%2C_India.jpg'},
+      {title: 'Title 3', subtitle: 'subtitle 3', cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Mud_Cow_Racing_-_Pacu_Jawi_-_West_Sumatra%2C_Indonesia.jpg/800px-Mud_Cow_Racing_-_Pacu_Jawi_-_West_Sumatra%2C_Indonesia.jpg'},
+    ]
+
+    titles.forEach(title => {
+      let node = document.createElement('blog-card');
+      node.setAttribute('title', title.title);
+      node.setAttribute('subtitle', title.subtitle);
+      node.setAttribute('cover', title.cover)
+
+      document.getElementById('blog-cards-container').appendChild(node);
+    })
+
+    let cards = document.getElementsByTagName('blog-card');
+
+    [...cards].forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelector('blog-modal').setAttribute('open', true);
+      })
+    })
+  </script>
 </body>
 </html>

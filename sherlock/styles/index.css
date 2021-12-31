@@ -1,0 +1,23 @@
+body{
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  margin: 0px;
+}
+
+.navbar{
+  width: 100%;
+  background-color: aquamarine;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-size: 24px;
+  margin-bottom: 2%;
+}
+
+#blog-cards-container{
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  justify-content: center;
+}
