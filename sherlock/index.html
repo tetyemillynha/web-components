@@ -15,15 +15,22 @@
     <div class="wrapper">
       <div class="overlay">
         <div class="modal">
-          <div class="title"></div>
-          <div class="subtitle"></div>
           <p class="close">X</p>
+          <div class="header">
+            <div class="title"></div>
+            <div class="subtitle"></div>
+          </div>
+          
+          <div class="content">
+            <img class="cover" src="">
+            <div class="synopsis"></div>
+          </div>
         </div>
       </div>
     </div>
   </template>
 
-  <blog-modal title="Blog Post #1" content="This is the blog post number 1. This is the content of the template" required></blog-modal>
+  <blog-modal title="Blog Post #1" subtitle="This is the blog post number 1. This is the content of the template" required></blog-modal>
   <header>
     <nav class="navbar">
       <h1> Sherlock Holmes - The Blog</h1>
@@ -65,9 +72,9 @@
   <script src="./scripts/blog-modal.js"></script>
   <script>
     const titles = [
-      {title: 'Title 1', subtitle: 'subtitle 1', cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Polarlicht_2.jpg/800px-Polarlicht_2.jpg'},
-      {title: 'Title 2', subtitle: 'subtitle 2', cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sikh_pilgrim_at_the_Golden_Temple_%28Harmandir_Sahib%29_in_Amritsar%2C_India.jpg/800px-Sikh_pilgrim_at_the_Golden_Temple_%28Harmandir_Sahib%29_in_Amritsar%2C_India.jpg'},
-      {title: 'Title 3', subtitle: 'subtitle 3', cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Mud_Cow_Racing_-_Pacu_Jawi_-_West_Sumatra%2C_Indonesia.jpg/800px-Mud_Cow_Racing_-_Pacu_Jawi_-_West_Sumatra%2C_Indonesia.jpg'},
+      {title: 'Title 1', subtitle: 'subtitle 1', cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Polarlicht_2.jpg/800px-Polarlicht_2.jpg', synopsis: 'Synopsis 1'},
+      {title: 'Title 2', subtitle: 'subtitle 2', cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Sikh_pilgrim_at_the_Golden_Temple_%28Harmandir_Sahib%29_in_Amritsar%2C_India.jpg/800px-Sikh_pilgrim_at_the_Golden_Temple_%28Harmandir_Sahib%29_in_Amritsar%2C_India.jpg', synopsis: 'Synopsis 2'},
+      {title: 'Title 3', subtitle: 'subtitle 3', cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Mud_Cow_Racing_-_Pacu_Jawi_-_West_Sumatra%2C_Indonesia.jpg/800px-Mud_Cow_Racing_-_Pacu_Jawi_-_West_Sumatra%2C_Indonesia.jpg', synopsis: 'Synopsis 3'},
     ]
 
     titles.forEach(title => {
@@ -83,7 +90,14 @@
 
     [...cards].forEach(card => {
       card.addEventListener('click', () => {
-        document.querySelector('blog-modal').setAttribute('open', true);
+        let blogModal = document.querySelector('blog-modal')
+        let currentBlog =  titles.filter(title => title.title === card.getAttribute('title'));
+        blogModal.setAttribute('open', true);
+        blogModal.setAttribute('title', card.getAttribute('title'));
+        blogModal.setAttribute('subtitle', card.getAttribute('subtitle'));
+        blogModal.setAttribute('synopsis', currentBlog[0].synopsis);
+        blogModal.setAttribute('cover', currentBlog[0].cover);
+
       })
     })
   </script>

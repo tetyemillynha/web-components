@@ -1,13 +1,13 @@
 class BlogModal extends HTMLElement {
   static get observedAttributes() {
-    return ['open', 'title', 'content'];
+    return ['open', 'title', 'subtitle', 'cover', 'synopsis'];
   }
 
   constructor() {
     super(); 
     this.attachShadow({mode: 'open'});
     this.close = new CustomEvent('close', {
-      bubles: true,
+      bubbles: true,
       cancelable: false,
       detail: {
         open: false
@@ -62,20 +62,22 @@ class BlogModal extends HTMLElement {
       const closeEvent = this.close;
 
       close.onclick = function() {
-        console.log('Close was clicked');
         this.dispatchEvent(closeEvent);
       }
 
       shadowRoot.addEventListener('close', () => {
-        console.log('Close was called');
+        wrapper.classList.remove('open');
+        this['open'] = false;
       })
-      
+
       if (this['open'] === true) {
         instance.querySelector('.wrapper').classList.add('open');
       }
       
       instance.querySelector('.title').innerHTML = this['title'];
-      instance.querySelector('.subtitle').innerHTML = this['content'];
+      instance.querySelector('.subtitle').innerHTML = this['subtitle'];
+      instance.querySelector('.synopsis').innerHTML = this['synopsis'];
+      instance.querySelector('.cover').src = this['cover'];
 
       shadowRoot.appendChild(instance);
     } else {

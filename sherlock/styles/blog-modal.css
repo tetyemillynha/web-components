@@ -22,6 +22,9 @@
   transition: all 0.3s ease-out;
 }
 
+.modal img{
+  width: 50%;
+}
 .overlay{
   background: rgba(0,0,0,0.8);
   height: 100%;
@@ -36,4 +39,6 @@
   position: absolute;
   right: 15px;
   top: 0px;
+  padding: 5px;
+  z-index: 700;
 }
