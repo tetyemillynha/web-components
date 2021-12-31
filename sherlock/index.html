@@ -7,6 +7,7 @@
   <title>Sherlock Holmes - The Blog</title>
 </head>
 <body>
+  <!-- Blg Card Template -->
   <template id="card-template">
     <style>
       .card {
@@ -36,7 +37,25 @@
     </div>
   </template>
 
+  <!-- Blog Modal Template -->
+  <template id="modal-template">
+    <style>
+      .modal{
+        padding: 10px;
+        border: solid 1px #ddd;
+        width: 300px;
+      }
+    </style>
+    <div class="modal">
+      <div class="title"></div>
+      <div class="subtitle"></div>
+    </div>
+  </template>
+
+  <blog-modal title="Blog Post #1" content="This is the blog post number 1. This is the content of the template"></blog-modal>
   <blog-card></blog-card>
+
   <script src="./scripts/blog-card.js"></script>
+  <script src="./scripts/blog-modal.js"></script>
 </body>
 </html>

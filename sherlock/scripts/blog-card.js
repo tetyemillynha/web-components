@@ -10,9 +10,12 @@ class BlogCard extends HTMLElement {
     this.attachShadow({mode: 'open'});
   }
 
-
   connectedCallback() {
    this.render()
+  }
+
+  disconectCallback() {
+    console.log('Disconnect from the DOM')
   }
 
   render(){
@@ -35,3 +38,5 @@ class BlogCard extends HTMLElement {
   }
 }
 customElements.define('blog-card', BlogCard);
+
+// document.querySelector('blog-card').remove() //disconnecting the component from de DOM
