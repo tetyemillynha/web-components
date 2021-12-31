@@ -52,6 +52,14 @@ class BlogModal extends HTMLElement {
   render() {
     const { shadowRoot } = this;
     const templateNode = document.getElementById('modal-template');
+    const loading = [
+      {transform: 'rotate(0deg)'},
+      {transform: 'rotate(360deg)'},
+    ]
+    const loadigTiming = {
+      duration: 3000,
+      iteration: 50
+    }
 
     shadowRoot.innerHTML = '';
 
@@ -59,6 +67,11 @@ class BlogModal extends HTMLElement {
       const instance =  document.importNode(templateNode.content, true);
       const close = instance.querySelector('.close');
       const wrapper = instance.querySelector('.wrapper');
+      const title = instance.querySelector('.title');
+      const subtitle = instance.querySelector('.subtitle');
+      const synopsis = instance.querySelector('.synopsis');
+      const cover = instance.querySelector('.cover');
+
       const closeEvent = this.close;
 
       close.onclick = function() {
@@ -74,10 +87,10 @@ class BlogModal extends HTMLElement {
         instance.querySelector('.wrapper').classList.add('open');
       }
       
-      instance.querySelector('.title').innerHTML = this['title'];
-      instance.querySelector('.subtitle').innerHTML = this['subtitle'];
-      instance.querySelector('.synopsis').innerHTML = this['synopsis'];
-      instance.querySelector('.cover').src = this['cover'];
+      title.innerHTML = this['title'];
+      subtitle.innerHTML = this['subtitle'];
+      synopsis.innerHTML = this['synopsis'];
+      cover.src = this['cover'];
 
       shadowRoot.appendChild(instance);
     } else {
