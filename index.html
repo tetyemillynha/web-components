@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- Component -->
+  <my-card></my-card>
+  <script src="my-card.js"></script>
+
+  <!-- Shadow DOM -->
+  <div id="content"></div>
+
+  <h1 id="header">This will NOT have a red background.</h1>
+
+  <!-- HTML Templates -->
+  <template id="card-template">
+    <p><span class="title"></span> &mdash; <span class="subtitle"></span></p>
+  </template>
+  <div id="card-titles"></div>
+
+  <!-- Scripts -->
+  <script>
+    // shadow dom
+    const shadowRoot = document.getElementById('content').attachShadow({mode: 'open'});
+    shadowRoot.innerHTML = `
+      <style>
+        h1 {
+          background: red;
+          color: white;
+        }
+      </style>
+      <h1 id="header">This will HAVE a red background.</h1>
+    `
+    //End shadow dom
+
+
+    // html template
+    const titles = [
+      {title: 'Title 1', subtitle: 'subtitle 1'},
+      {title: 'Title 2', subtitle: 'subtitle 2'},
+      {title: 'Title 3', subtitle: 'subtitle 3'},
+      {title: 'Title 4', subtitle: 'subtitle 4'},
+    ]
+
+    const fragment = document.getElementById('card-template');
+    titles.forEach(title => {
+      const instance = document.importNode(fragment.content, true);
+      instance.querySelector('.title').innerHTML = title.title;
+      instance.querySelector('.subtitle').innerHTML = title.subtitle;
+
+      document.getElementById('card-titles').appendChild(instance);
+    })
+    // end html template
+  </script>
+
+</body>
+</html>
