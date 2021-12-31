@@ -71,6 +71,8 @@ class BlogModal extends HTMLElement {
       const subtitle = instance.querySelector('.subtitle');
       const synopsis = instance.querySelector('.synopsis');
       const cover = instance.querySelector('.cover');
+      const loader = instance.querySelector('.loader');
+      const loadAnimation = loader.animate(loading, loadigTiming);
 
       const closeEvent = this.close;
 
@@ -86,12 +88,19 @@ class BlogModal extends HTMLElement {
       if (this['open'] === true) {
         instance.querySelector('.wrapper').classList.add('open');
       }
-      
-      title.innerHTML = this['title'];
-      subtitle.innerHTML = this['subtitle'];
-      synopsis.innerHTML = this['synopsis'];
-      cover.src = this['cover'];
 
+      loadAnimation.play();
+      let blogModal = this;
+
+      setTimeout(function() {
+        loadAnimation.finish();
+        loader.classList.add('close');
+        title.innerHTML = blogModal['title'];
+        subtitle.innerHTML = blogModal['subtitle'];
+        synopsis.innerHTML = blogModal['synopsis'];
+        cover.src = blogModal['cover'];
+      }, 3000)
+    
       shadowRoot.appendChild(instance);
     } else {
       shadowRoot.innerHTML = '<p>Shadow Root failed. Please try again later.</p>';

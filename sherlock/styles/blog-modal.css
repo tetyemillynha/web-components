@@ -13,6 +13,7 @@
   z-index: 500;
   background-color: white;
   width: 70%;
+  min-height: 300px;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 1px black;
   padding: 16px;
@@ -20,8 +21,24 @@
   top: 30%;
   box-sizing: border-box;
   transition: all 0.3s ease-out;
+  text-align: center;
 }
 
+.title{
+  font-size: 24px;
+  font-weight: bold;
+  color: cadetblue;
+}
+
+.synpsis{
+  font-size: 14px;
+}
+
+.subtitle{
+  font-size: 14px;
+  color: dimgray;
+  margin-bottom: 10px;
+}
 .modal img{
   width: 50%;
 }
@@ -57,9 +74,4 @@
 
 .loader.close{
   display: none;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% {transform: rotate(360deg)}
 }
